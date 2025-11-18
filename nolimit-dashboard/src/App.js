@@ -26,7 +26,7 @@ function App() {
         <h1>Athlete Performance</h1>
         <p className="subtitle">Overview of your team's progress and metrics</p>
       </header>
-    
+
     </div>
   );
 }
