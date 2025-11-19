@@ -5,13 +5,13 @@
 }
 
 body {
-  background: #000000;
+  background: #0a0a0a;
   color: #ffffff;
-  font-family: 'Georgia', 'Times New Roman', 'Palatino', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 .App {
@@ -21,7 +21,7 @@ body {
 
 .Sidebar {
   width: 240px;
-  background: #0a0a0a;
+  background: #000000;
   border-right: 1px solid #1a1a1a;
   padding: 2rem 0;
   position: fixed;
@@ -36,10 +36,10 @@ body {
 }
 
 .sidebar-logo h2 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  font-style: italic;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #ffffff;
 }
 
 .nav-menu {
@@ -47,68 +47,64 @@ body {
 }
 
 .nav-item {
-  padding: 0.85rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
+  transition: background 0.2s;
   font-size: 0.9rem;
-  color: #888888;
+  font-weight: 500;
+  color: #666666;
 }
 
 .nav-item:hover {
   background: #0f0f0f;
   color: #ffffff;
-  border-left-color: #3b82f6;
 }
 
 .nav-item.active {
   background: #0f0f0f;
   color: #ffffff;
-  border-left-color: #22c55e;
 }
 
 .main-content {
   flex: 1;
   margin-left: 240px;
-  padding: 2rem 2.5rem;
+  padding: 3rem;
+  max-width: 1400px;
 }
 
 .dashboard-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .dashboard-header h1 {
   font-size: 2rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.25rem;
   color: #ffffff;
-  font-style: italic;
 }
 
 .subtitle {
   color: #666666;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 400;
 }
 
 .insights-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
   margin-bottom: 2.5rem;
 }
 
 .insight-card {
-  background: #0a0a0a;
+  background: #111111;
   border: 1px solid #1a1a1a;
-  padding: 1.5rem;
-  border-radius: 4px;
-  transition: border-color 0.2s ease;
-}
-
-.insight-card:hover {
-  border-color: #2a2a2a;
+  padding: 1.75rem;
+  border-radius: 16px;
 }
 
 .insight-label {
@@ -117,94 +113,87 @@ body {
   letter-spacing: 1px;
   color: #666666;
   margin-bottom: 0.75rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .insight-value {
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  font-variant-numeric: tabular-nums;
+  color: #ffffff;
 }
 
 .insight-change {
   font-size: 0.85rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
 }
 
 .insight-change.positive {
-  color: #22c55e;
+  color: #10b981;
 }
 
 .insight-change.negative {
-  color: #f87171;
+  color: #ef4444;
 }
 
 .insight-change.neutral {
-  color: #60a5fa;
-}
-
-.section-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #1a1a1a;
-}
-
-.section-header h2 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  font-style: italic;
-  color: #ffffff;
+  color: #666666;
 }
 
 .athlete-table {
   width: 100%;
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #111111;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .athlete-table thead {
-  border-bottom: 2px solid #1a1a1a;
+  background: #0a0a0a;
 }
 
 .athlete-table th {
   text-align: left;
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
-  font-weight: 500;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase; 
+  letter-spacing: 1px;
   color: #666666;
+  border-bottom: 1px solid #1a1a1a;
 }
 
 .athlete-table td {
-  padding: 0.65rem 1rem 0.65rem 0.5rem;
-  border-bottom: 1px solid #0f0f0f;
-  font-weight: 400;
-  vertical-align: middle;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #1a1a1a;
+  color: #ffffff;
+}
+
+.athlete-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .athlete-table tbody tr:hover {
-  background: #0a0a0a;
+  background: #0f0f0f;
 }
 
 .athlete-name {
-  font-weight: 500;
-  font-size: 0.85rem;
-  letter-spacing: 0.3px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #ffffff;
 }
 
 .athlete-sport {
-  color: #888888;
-  font-size: 0.8rem;
+  color: #666666;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .sessions-count {
-  font-size: 0.85rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .progress-cell {
@@ -215,94 +204,137 @@ body {
 
 .progress-bar-container {
   flex: 1;
-  height: 3px;
-  background: #0f0f0f;
-  border-radius: 0;
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  transition: none;
+  border-radius: 2px;
 }
 
 .progress-text {
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   min-width: 40px;
   text-align: right;
-  font-variant-numeric: tabular-nums;
 }
 
-.progress-excellent {
-  color: #22c55e;
+.progess-excellent {
+  color: #10b981;
 }
 
 .progress-bar.progress-excellent {
-  background: #22c55e;
+  background: #10b981;
 }
 
 .progress-good {
-  color: #60a5fa;
+  color: #3b82f6;
 }
 
 .progress-bar.progress-good {
-  background: #60a5fa;
+  background: #3b82f6
 }
 
 .progress-moderate {
-  color: #fbbf24;
+  color: #f59e0b;
 }
 
 .progress-bar.progress-moderate {
-  background: #fbbf24;
+  color: #f59e0b;
 }
 
-.progress-low {
-  color: #f87171;
-}
-
-.progress-bar.progress-low {
-  background: #f87171;
+.progres-bar.progress-low {
+  background: #ef4444
 }
 
 .status-indicator {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 0;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 1px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  border: 1px solid;
 }
 
 .status-active {
-  background: transparent;
-  color: #22c55e;
-  border-color: #22c55e;
+  background: rgba(16,185, 129, 0.15);
+  color: #10b981;
 }
 
 .status-recovery {
-  background: transparent;
-  color: #fbbf24;
-  border-color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
 }
 
 .status-injury {
-  background: transparent;
-  color: #f87171;
-  border-color: #f87171;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
 }
 
 .metric-high {
-  color: #22c55e;
+  color: #10b981;
 }
 
 .metric-medium {
-  color: #60a5fa;
+  color: #3b82f6
 }
 
 .metric-low {
-  color: #f87171;
+  color: #ef4444;
+}
+
+
+.theme-toggle {
+  background: #111111;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+  background: #1a1a1a;
+  transform: scale(1.05);
+}
+
+.light-mode {
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.light-mode .Sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e5d5;
+}
+
+.light-mode .sidebar-logo h2 {
+  color: #1a1a1a;
+}
+
+.light-mode .nav-item {
+  color: #666666;
+}
+
+.light-mode .nav-item:hover{
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.light-mode .nav-item.active {
+  background: #f0fdf4;
+  color: #10b981;
+}
+
+.light-mode .dashboard-header h1{
+  color: #1a1a1a;
+}
+
+.light-mode .subtitle {
+  color: #666666;
 }
