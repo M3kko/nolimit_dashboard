@@ -339,8 +339,8 @@ body {
 }
 
 .light-mode .nav-item.active {
-  background: #f0fdf4;
-  color: #10b981;
+  background: #e5e5e5;
+  color: #666666;
 }
 
 .light-mode .dashboard-header h1{
