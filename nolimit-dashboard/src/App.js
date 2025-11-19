@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import SunIcon from './assets/sun-high.svg';
+import MoonIcon from './assets/moon-stars.svg';
 
 const athletesData = [
   {
@@ -85,12 +87,14 @@ const getSessionsClass = (sessions) => {
 function App() {
 const [activeNav, setActiveNav] = React.useState('dashboard');
 
+const [darkMode, setDarkMode] = React.useState(true);
+
 const totalSessions = athletesData.reduce((sum, athlete) => sum + athlete.sessions, 0);
 const activeAthletes = athletesData.filter(athlete => athlete.status === 'active').length;
 
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <aside className="Sidebar">
         <div className="sidebar-logo">
           <h2>NoLimit</h2>
@@ -133,8 +137,13 @@ const activeAthletes = athletesData.filter(athlete => athlete.status === 'active
 
       <main className="main-content">
         <header className="dashboard-header">
-          <h1>Athlete Performance</h1>
-          <p className="subtitle">Real-time performance metrics and training analytics</p>
+          <div>
+            <h1>Athlete Performance</h1>
+            <p className="subtitle">Real-time performance metrics and training analytics</p>
+          </div>
+          <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+            <img src={darkMode ? MoonIcon : SunIcon} alt="Toggle theme" />
+          </button>
         </header>
 
         <div className="insights-bar">
