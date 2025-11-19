@@ -1,0 +1,77 @@
+.athlete-detail-page {
+    padding: 2rem 0;
+}
+
+.back-button {
+    background: transparent;
+    border: none;
+    color: #666666;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    margin-bottom: 2rem;
+    transition: color 0.2s; 
+}
+
+.back-button:hover {
+    color: #ffffff;
+}
+
+.athlete-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px soolid #1a1a1a;
+}
+
+.athlete-detail-info {
+    flex: 1;
+}
+
+.athlete-detail-name {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #ffffff;
+}
+
+.athlete-detail-sport {
+    font-size: 1rem;
+    color: #666666;
+}
+
+.key-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.metric-card {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.metric-change {
+    
+}
