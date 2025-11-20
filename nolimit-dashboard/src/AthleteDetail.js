@@ -83,7 +83,51 @@ const AthleteDetail = ({ athletesData }) => {
 
             <div className="metric-card">
                 <div className="metric-label">L/R Asymmetry</div>
+                <div className="metric-value progress-moderate">8%</div>
+                <div className="metric-change neutral">Within range</div>
+            </div>
+
+        <div className="detail=section">
+            <h2 className="section-title">Recent Sessions</h2>
+            <div className="sessions-list">
+                {recentSessions.map((session) => {
+                    <div key={session.id} className="session-item">
+                        <div className="session-date">{session.date}</div>
+                        <div className="session-details">
+                            <div className="session-meta">
+                                <span>{session.duration}</span>
+                                <span className="session-dot">•</span>
+                                <span className={`session-load load-${session.load.toLowerCase()}`}>
+                                    {session.load} Load
+                                </span>
+                            </div>
+                        </div>
+                        <button className="session-view-btn">View →</button>
+                    </div>
+                })}
             </div>
         </div>
-    )
-}
+
+        <div className="detail-section">
+            <h2 className="section-title">Weekly Progress</h2>
+            <div className="chart-placeholder">
+                <p>Chart will go here later</p>
+            </div>
+        </div>
+
+        <div className="detail-section">
+            <h2 className="section-title">Coach Notes</h2>
+            <div className="notes-container">
+                <textarea
+                    className="notes-input"
+                    placeholder="Add notes about this athlete here..."
+                    rows="4"
+                />
+                <button className="save-notes-btn">Save Notes</button>
+            </div>
+        </div>
+    </div>     
+    );
+};
+
+export default AthleteDetail;
