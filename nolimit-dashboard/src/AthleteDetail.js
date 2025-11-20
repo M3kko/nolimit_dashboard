@@ -6,7 +6,7 @@ const AthleteDetail = ({ athletesData }) => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const athlete = athletes.Data.find(a => a.id === parseInt(id));
+    const athlete = athletesData.find(a => a.id === parseInt(id));
 
     if (!athlete) {
         return (
@@ -30,7 +30,7 @@ const AthleteDetail = ({ athletesData }) => {
 
     const getProgressClass = (progress) => {
         if (progress >=90) return 'progress-excellent';
-        if (progres >=80) return 'progress-good';
+        if (progress >=80) return 'progress-good';
         if (progress >=65) return 'progress-moderate';
         return 'progress-low';
     };
