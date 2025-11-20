@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import SunIcon from './assets/sun-high.svg';
 import MoonIcon from './assets/moon-stars.svg';
+import AthleteDetail from './AthleteDetail';
 
 const athletesData = [
   {
@@ -91,6 +92,62 @@ const [darkMode, setDarkMode] = React.useState(true);
 
 const totalSessions = athletesData.reduce((sum, athlete) => sum + athlete.sessions, 0);
 const activeAthletes = athletesData.filter(athlete => athlete.status === 'active').length;
+
+const handleAthleteClick = (athlete) => {
+  setSelectedAthlete(athlete);
+};
+
+const handleBackToDashboard = () => {
+  setSelectedAthlete(null);
+};
+
+if (selectedAthlete) {
+  return (
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+      <aside className="Sidebar">
+        <div className="sidebar-logo">
+          <h2>NoLimit</h2>
+        </div>
+        <nav>
+          <ul className="nav-menu">
+            <li
+            className={`nav-item ${activeNav === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveNav('dashboard')}
+            >
+              Dashboard
+            </li>
+            <li
+            className={`nav-item ${activeNav === 'athletes' ? 'active' : ''}`}
+            onClick={() => setActiveNav('athletes')}
+            >
+              Athletes
+            </li>
+            <li
+            className={`nav-item ${activeNav === 'analytics' ? 'active' : ''}`}
+            onClick={() => setActiveNav('analytics')}
+            >
+              Analytics
+            </li>
+            <li
+            className={`nav-item ${activeNav === 'schedule' ? 'active' : ''}`}
+            onClick={() => setActiveNav('schedule')}
+            >
+              Schedule
+            </li>
+            <li 
+            className={`nav-item ${activeNav === 'settings' ? 'active' : ''}`}
+            onClick={() => setActiveNav('settings')}
+            >
+              Settings
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+
+    </div>
+  )
+}
 
 
   return (
