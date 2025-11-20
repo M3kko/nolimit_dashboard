@@ -1,9 +1,9 @@
 import React from 'react';
-import { Routes, Route} from 'react-fouter-dom';
+import { Routes, Route} from 'react-router-dom';
 import './App.css';
 import SunIcon from './assets/sun-high.svg';
 import MoonIcon from './assets/moon-stars.svg';
-import Dashboard from './AthleteDetail';
+import Dashboard from './dashboard';
 import AthleteDetail from './AthleteDetail';
 
 const athletesData = [
