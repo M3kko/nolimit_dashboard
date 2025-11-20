@@ -73,5 +73,164 @@
 }
 
 .metric-change {
-    
+    font-size: 0.85rem;
+    font-weight: 500;
 }
+
+.detail-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.sessions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.session-item {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.2s;
+}
+
+.session-item:hover {
+    border-color: #2a2a2a;
+}
+
+.session-date {
+    font-size: 0.85rem;
+    color: #666666;
+    min-width: 100px;
+    font-weight: 500;
+}
+
+.session-details {
+    flex: 1;
+}
+
+.session-type {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+
+.session-meta {
+    font-size: 0.85rem;
+    color: #666666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.session-dot {
+    color: #333333;
+}
+
+.session-load {
+    font-weight: 500;
+}
+
+.load-high {
+    color: #ef4444;
+}
+
+.load-medium {
+    color: #f59e0b;
+}
+
+.load-low {
+    color: #10b981;
+}
+
+.session-view-btn {
+    background: transparent;
+    border: 1px solid #1a1a1a;
+    color: #666666;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.session-view-btn:hover {
+    border-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.chart-placeholder {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center; 
+}
+
+.chart-placeholder p {
+    color: #666666;
+    margin-bottom: 2rem;
+}
+
+.chart-mock {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 200px;
+    gap: 0.5rem;
+}
+
+.chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    border-radius: 4px 4px 0 0;
+    min-height: 20px;
+}
+
+.notes-container {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.notes-input {
+    width: 100%;
+    background: #0a0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+.notes-input::placeholder {
+    color: #666666;
+}
+
+.save-notes-btn {
+    background: #10b981;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer; 
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
