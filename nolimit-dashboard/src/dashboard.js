@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Dashboard = ({ athletesData }) => {
+const Dashboard = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon }) => {
     const navigate = useNavigate();
 
     const getProgressClass = (progress) => {
@@ -40,6 +40,9 @@ const Dashboard = ({ athletesData }) => {
                 <h1>Athlete Performance</h1>
                 <p className="subtitle">Real-time performance metrics and training analytics</p>
             </div>
+            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+                <img src={darkMode ? MoonIcon : SunIcon} alt="Toggle theme" />
+            </button>
         </header>
 
         <div className="insights-bar">

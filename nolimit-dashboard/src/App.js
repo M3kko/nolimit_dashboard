@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      <aside classname="Sidebar">
+      <aside className="Sidebar">
         <div className="sidebar-logo">
           <h2>NoLimit</h2>
         </div>
@@ -112,14 +112,8 @@ function App() {
       </aside>
 
       <main className="main-content">
-        <header className="dashboard-header">
-          <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-            <img src={darkMode ? MoonIcon : SunIcon} alt="Toggle theme" />
-          </button>
-        </header>
-
         <Routes>
-          <Route path="/" element={<Dashboard athletesData={athletesData} />} />
+          <Route path="/" element={<Dashboard athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/athlete/:id" element={<AthleteDetail athletesData={athletesData} />} />
         </Routes>
       </main>
