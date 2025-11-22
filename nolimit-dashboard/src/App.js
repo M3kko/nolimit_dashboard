@@ -1,9 +1,10 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import SunIcon from './assets/sun-high.svg';
 import MoonIcon from './assets/moon-stars.svg';
 import Dashboard from './dashboard';
+import Athletes from './athletes';
 import AthleteDetail from './AthleteDetail';
 
 const athletesData = [
@@ -68,6 +69,18 @@ const athletesData = [
 function App() {
   const [activeNav, setActiveNav] = React.useState('dashboard');
   const [darkMode, setDarkMode] = React.useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.pathname === '/') {
+      setActiveNav('dashboard');
+    } else if (location.pathname === '/athletes') {
+      setActiveNav('athletes');
+    } else if (location.pathname.startsWith('/athlete/')) {
+      setActiveNav('dashboard');
+    }
+  }, [location]);
 
   return (
     <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -77,15 +90,15 @@ function App() {
         </div>
         <nav>
           <ul className="nav-menu">
-            <li 
+            <li
             className={`nav-item ${activeNav === 'dashboard' ? 'active' : ''}`}
-            onClick={() => setActiveNav('dashboard')}
+            onClick={() => navigate('/')}
             >
               Dashboard
             </li>
             <li
             className={`nav-item ${activeNav === 'athletes' ? 'active' : ''}`}
-            onClick={() => setActiveNav('athletes')}
+            onClick={() => navigate('/athletes')}
             >
               Athletes
             </li>
@@ -114,6 +127,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Dashboard athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
+          <Route path="/athletes" element={<Athletes athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/athlete/:id" element={<AthleteDetail athletesData={athletesData} />} />
         </Routes>
       </main>
@@ -121,4 +135,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
