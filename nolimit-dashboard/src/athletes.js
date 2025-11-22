@@ -5,7 +5,7 @@ import './Athletes.css';
 const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterSport, setFilterSport] = useState('');
+    const [filterSport, setFilterSport] = useState('all');
     const [filterStatus, setFilterStatus] = useState('all');
     const [sortBy, setSortBy] = useState('name');
 
@@ -14,6 +14,7 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
             case 'active': return 'status-active';
             case 'recovery': return 'status-recovery';
             case 'injury': return 'status-injury';
+            default: return 'status-active';
         }
     };
 
@@ -28,9 +29,9 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
 
     const filteredAthletes = athletesData
         .filter(athlete => {
-            const matchesSearch = athlete.name.toLowerCase().include(searchTerm.toLowerCase());
+            const matchesSearch = athlete.name.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesSport = filterSport === 'all' || athlete.sport === filterSport;
-            const matchesStatus = filterStatus === 'all' || athlete.
+            const matchesStatus = filterStatus === 'all' || athlete.status.toLowerCase() === filterStatus.toLowerCase();
             return matchesSearch && matchesSport && matchesStatus;
         })
         .sort((a, b) => {
@@ -90,7 +91,7 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
                         <option value="all">All Status</option>
                         <option value="active">Active</option>
                         <option value="recovery">Recovery</option>
-                        <option claue="injury">Injury</option>
+                        <option value="injury">Injury</option>
                     </select>
 
                     <select
@@ -105,7 +106,7 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
                 </div>
             </div>
 
-            <div className="athlete-stats">
+            <div className="athletes-stats">
                 <div className="stat-badge">
                     <span className="stat-number">{filteredAthletes.length}</span>
                     <span className="stat-label">Athletes Found</span>
@@ -129,11 +130,44 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
                         </div>
 
                         <div className="athlete-card-body">
-                            
+                            <h3 className="athlete-card-name">{athlete.name}</h3>
+                            <p className="athlete-card-sport">{athlete.sport}</p>
+
+                            <div className="athlete-card-stats">
+                                <div className="card-stat">
+                                    <div className="card-stat-label">Weekly Progress</div>
+                                    <div className={`card-stat-value ${getProgressClass(athlete.weeklyProgress)}`}>
+                                        {athlete.weeklyProgress}%
+                                    </div>
+                                </div>
+                                <div className="card-stat">
+                                    <div className="card-stat-label">Sessions</div>
+                                    <div className="card-stat-value">{athlete.sessions}</div>
+                                </div>
+                            </div>
+                            <div className="progress-bar-container">
+                                <div
+                                    className={`progress-bar ${getProgressClass(athlete.weeklyProgress)}`}
+                                    style={{ width: `${athlete.weeklyProgress}%` }}
+                                />
+                            </div>
                         </div>
+
+                        <div className="athlete-card-footer">
+                            <button className="view-details-btn">View Details →</button>
+                        </div>
+                    </div>
                 ))}
             </div>
+
+            {filteredAthletes.length === 0 && (
+                <div className="no-results">
+                    <p>No athletes found matching your criteria</p>
+                </div>
+            )}
         
         </>
-    )
-}
+    );
+};
+
+export default Athletes;
