@@ -72,5 +72,65 @@
 .stat-badge {
     display: flex;
     flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem;
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+}
+
+.stat-number {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    font-weight: 600;
+}
+
+.athletes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.athlete-card {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.athlete-card:hover {
+    border-color: #2a2a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.athlete-card-header {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.athlete-avatar-large {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
