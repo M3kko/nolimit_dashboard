@@ -1,5 +1,6 @@
 .athlete-detail-page {
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+    max-width: 1600px;
 }
 
 .back-button {
@@ -9,7 +10,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     padding: 0.5rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     transition: color 0.2s;
 }
 
@@ -21,20 +22,19 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid #1a1a1a;
 }
 
 .athlete-detail-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 600;
     color: #ffffff;
 }
@@ -44,286 +44,231 @@
 }
 
 .athlete-detail-name {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
     color: #ffffff;
 }
 
 .athlete-detail-sport {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #666666;
 }
 
-.key-metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-}
-
-.metric-card {
-    background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 16px;
-    padding: 1.5rem;
-}
-
-.metric-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
+.section-title-inline {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: 1px;
     letter-spacing: 1px;
     color: #666666;
     margin-bottom: 0.75rem;
-    font-weight: 600;
+    margin-top: 2rem;
 }
 
-.metric-value {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-}
-
-.metric-change {
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.detail-section {
-    margin-bottom: 2.5rem;
-}
-
-.section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
+.biometrics-grid-primary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     margin-bottom: 1.5rem;
-    color: #ffffff;
 }
 
-.sessions-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.session-item {
+.metric-card-compact {
     background: #111111;
     border: 1px solid #1a1a1a;
     border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: all 0.2s;
+    padding: 1.25rem;
+    transition: all 0.2s; 
 }
 
-.session-item:hover {
+.metric-card-compact:hover {
     border-color: #2a2a2a;
+    transform: translateY(-1px);
 }
 
-.session-date {
-    font-size: 0.85rem;
+.metric-label-compact {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     color: #666666;
-    min-width: 100px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.session-details {
-    flex: 1;
-}
-
-.session-type {
-    font-size: 0.95rem;
+.metric-value-large {
+    font-size: 2rem;
     font-weight: 600;
     color: #ffffff;
     margin-bottom: 0.25rem;
+    line-height: 1;
 }
 
-.session-meta {
-    font-size: 0.85rem;
-    color: #666666;
+.metric-trend {
+    font-size: 0.8rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
 }
 
-.session-dot {
-    color: #333333;
-}
-
-.session-load {
-    font-weight: 500;
-}
-
-.load-high {
-    color: #ef4444;
-}
-
-.load-medium {
-    color: #f59e0b;
-}
-
-.load-low {
+.trend-positive {
     color: #10b981;
 }
 
-.session-view-btn {
-    background: transparent;
-    border: 1px solid #1a1a1a;
+.trend-negative {
+    color: #ef4444;
+}
+
+.trend-neutral {
     color: #666666;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
+}
+
+.metric-card-compact.metric-excellent {
+    border-left: 3px solid #10b981;
+}
+
+.metric-card-compact.metric-moderate {
+    border-left: 3px solid #f59e0b
+}
+
+.metric-card-compact.metric-low {
+    border-left: 3px solid #ef4444;
+}
+
+.biometrics-grid-detailed {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric-card-small {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     transition: all 0.2s;
 }
 
-.session-view-btn:hover {
-    border-color: #2a2a2a;
-    color: #ffffff;
-}
-
-.chart-placeholder {
-    background: #111111;
+.metric-card-small:hover {
+    border-color :#2a2a2a;
     border: 1px solid #1a1a1a;
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-}
-
-.chart-placeholder p {
-    color: #666666;
-    margin-bottom: 2rem;
-}
-
-.chart-mock {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
-    height: 200px;
-    gap: 0.5rem;
-}
-
-.chart-bar {
-    flex: 1;
-    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-    border-radius: 4px 4px 0 0;
-    min-height: 20px;
-}
-
-.notes-container {
-    background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 16px;
-    padding: 1.5rem;
-}
-
-.notes-input {
-    width: 100%;
-    background: #0a0a0a;
-    border: 1px solid #1a1a1a;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 1rem;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 0.9rem;
-    resize: vertical;
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: all 0.2s;
 }
 
-.notes-input:focus {
-    outline: none;
+.metric-card-small:hover {
     border-color: #2a2a2a;
 }
 
-.notes-input::placeholder {
+.metric-label-small {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; 
     color: #666666;
-}
-
-.save-notes-btn {
-    background: #10b981;
-    border: none;
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
     font-weight: 600;
-    transition: background 0.2s;
 }
 
-.save-notes-btn:hover {
-    background: #059669;
+.metric-value-medium {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1;
 }
 
-.light-mode .back-button {
+.metric-unit {
+    font-size: 0.7rem; 
     color: #666666;
+    font-weight: 500;
 }
 
-.light-mode .back-button:hover {
-    color: #1a1a1a;
+.metric-trend-small {
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
 }
 
-.light-mode .athlete-detail-header {
-    border-bottom: 1px solid #e5e5e5;
+.metric-excellent {
+    color: #10b981;
 }
 
-.light-mode .athlete-detail-name {
-    color: #1a1a1a;
+.metric-good {
+    color: #3b82f6;
 }
 
-.light-mode .metric-card {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
+.metric-moderate {
+    color: #f59e0b;
 }
 
-.light-mode .metric-value {
-    color: #1a1a1a;
+.metric-low {
+    color: #ef4444;
 }
 
-.light-mode .section-title {
-    color: #1a1a1a;
+.sleep-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.light-mode .session-item {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
+.sleep-stat {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
-.light-mode .session-item:hover {
-    border-color: #cccccc;
+.sleep-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666666;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.light-mode .session-type {
-    color: #1a1a1a;
+.sleep-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
 }
 
-.light-mode .session-view-btn {
-    border-color: #e5e5e5;
+.sleep-bar {
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
-.light-mode .session-view-btn:hover {
-    border-color: #cccccc;
-    color: #1a1a1a;
+.sleep-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
 }
 
-.light-mode .chart-placeholder {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
+.sleep-bar-fill.deep {
+    background: #8b5cf6;
 }
 
-.light-mode .notes-container {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
+.sleep-bar-fill.rem {
+    background: #3b82f6;
 }
 
-.light-mode .notes-input {
-    background: #f5f5f5;
-    border: 1px solid #e5e5e5;
-    color: #1a1a1a;
+.sleep-bar-fill.light {
+    background: #10b981;
 }
 
-.light-mode .notes-input:focus {
-    border-color: #cccccc;
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
+
