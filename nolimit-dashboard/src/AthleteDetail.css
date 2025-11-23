@@ -272,3 +272,125 @@
     margin-bottom: 1.5rem;
 }
 
+.sessions-table-container {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.sessions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sessions-table thead {
+    background: #0a0a0a;
+}
+
+.sessions-table th {
+    text-align: left;
+    padding: 0.875rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.sessions-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #1a1a1a;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.sessions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.sessions-table tbody tr {
+    transition: background 0.2s;
+}
+
+.sessions-table tbody tr:hover {
+    background: #0f0f0f;
+}
+
+.session-date-cell {
+    color: #666666;
+    font-weight: 500;
+}
+
+.session-type-cell {
+    font-weight: 600;
+}
+
+.strain-high {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.strain-medium {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.strain-low {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.notes-container-compact {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.notes-input-compact {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 0.875rem;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    resize: vertical;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.2s;
+}
+
+.notes-input-compact:focus {
+    outline: none;
+    border-color: #2a2a2a;
+}
+
+.notes-input-compact::placeholder {
+    color: #666666;
+}
+
+.save-notes-btn-compact {
+    background: #ffffff;
+    color: #0a0a0a;
+    border:none;
+    padding: 0.625rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-notes-btn-compact:hover {
+    background: #e5e5e5;
+    transform: translateY(-1px);
+}
+
+.light-mode .athlete-detail-page {
+
+}
