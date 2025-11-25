@@ -94,5 +94,149 @@
     justify-content: space-around;
     align-items: flex-end;
     height: 120px;
+    padding-top: 1rem;
+}
+
+.perf-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.perf-bar-vertical {
+    width: 40px;
+    height: 80px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.perf-bar-fill-vertical {
+    width: 100%;
+    border-radius: 4px;
+    transition: height 0.3s ease;
+}
+
+.perf-bar-fill-vertical.excellent {
+    background: #10b981;
+}
+
+.perf-bar-fill-vertical.good {
+    background: #3b82f6;
+}
+
+.perf-bar-fill-vertical.moderate {
+    background: #f59e0b;
+}
+
+.perf-bar-fill-vertical.low {
+    background: #ef4444;
+}
+
+.perf-label {
+    font-size: 0.65rem;
+    color: #666666;
+    font-weight: 500;
+}
+
+.perf-count {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.sport-breakdown-table-container {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.sport-breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sport-breakdown-table th {
+    text-align: left;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.sport-breakdown-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #1a1a1a;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.sport-breakdown-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.sport-breakdown-table tbody tr {
+    transition: background 0.2s;
+}
+
+.sport-breakdown-table tbody tr:hover {
+    background: #0f0f0f;
+}
+
+.sport-name-cell {
+    font-weight: 600;
+}
+
+.sessions-cell {
+    font-weight: 600;
+    color: #3b82f6;
+}
+
+.trends-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.trend-card {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 1.25rem;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.trend-card:hover {
+    border-color: #2a2a2a;
+}
+
+.trend-card.current-weak {
+    border-color: #3b82f6;
+    background: linear-gradient(135deg, #111111 0%, #0f1419 100%);
+}
+
+.current-badge {
+    position: absolute;
+    right: 0.75rem; 
+    background: #3b82f6;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.trend-week {
+    font-size: 0.7rem;
     
 }
