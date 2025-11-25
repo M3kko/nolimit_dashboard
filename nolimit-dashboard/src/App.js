@@ -6,6 +6,7 @@ import MoonIcon from './assets/moon-stars.svg';
 import Dashboard from './dashboard';
 import Athletes from './athletes';
 import AthleteDetail from './AthleteDetail';
+import Analytics from './analytics';
 
 const athletesData = [
   {
@@ -77,6 +78,8 @@ function App() {
       setActiveNav('dashboard');
     } else if (location.pathname === '/athletes') {
       setActiveNav('athletes');
+    } else if (location.pathname === '/analytics') {
+      setActiveNav('analytics');
     } else if (location.pathname.startsWith('/athlete/')) {
       setActiveNav('dashboard');
     }
@@ -104,7 +107,7 @@ function App() {
             </li>
             <li
             className={`nav-item ${activeNav === 'analytics' ? 'active' : ''}`}
-            onClick={() => setActiveNav('analytics')}
+            onClick={() => navigate('/analytics')}
             >
               Analytics
             </li>
@@ -129,6 +132,7 @@ function App() {
           <Route path="/" element={<Dashboard athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/athletes" element={<Athletes athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/athlete/:id" element={<AthleteDetail athletesData={athletesData} />} />
+          <Route path="/analytics" element={<Analytics athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
         </Routes>
       </main>
     </div>
