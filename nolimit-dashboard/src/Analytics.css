@@ -238,5 +238,195 @@
 
 .trend-week {
     font-size: 0.7rem;
-    
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.trend-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.trend-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trend-metric-label {
+    font-size: 0.8rem;
+    color: #666666;
+}
+
+.trend-metric-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.performers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.performer-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: #0a0a0a;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.performer-item:hover {
+    background: #0f0f0f;
+}
+
+.performer-rank {
+    width: 24px;
+    height: 24px;
+    background: #1a1a1a;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666666;
+}
+
+.performer-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.attention-avtar {
+    background: linear-gradient(135deg, #1a0f0f 0%, #2a1a1a 100%);
+}
+
+.performer-info {
+    flex: 1;
+}
+
+.performer-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.performer-progress {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.attention-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.attention-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: #0a0a0a;
+    border-radius: 10px;
+    border-left: 3px solid #ef4444
+}
+
+.attention-indicators {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.no-attention {
+    color: #10b981;
+    font-size: 0.9rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.light-mode .analytics-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.light-mode .status-label,
+.light-mode .performer-name {
+    color: #1a1a1a;
+}
+
+.light-mode .status-bar-track,
+.light0mode .performer-name {
+    color: #1a1a1a;
+}
+
+.light-mode .status-bar-track,
+.light-mode .perf-bar-vertical {
+    background: #e5e5e5;
+}
+
+.light-mode .sport-breakdown-table-container {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.light-mode .sport-breakdown-table thead {
+    background: #fafafa;
+}
+
+.light-mode .sport-breakdown-table td {
+    color: #1a1a1a;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.light-mode .sport-breakdown-table th {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.light-mode .sport-breakdown-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.light-mode .trend-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+
+.light-mode .trend-card:hover {
+    border-color: #cccccc;
+}
+
+.light-mode .trend-card.current-week {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+}
+
+.light-mode .trend-metric-value {
+    color: #1a1a1a;
+}
+
+.light-mode .performer-item, 
+.light-mode .attention-item {
+    background: #fafafa;
+}
+
+.light-mode .performer-item:hover {
+    background: #f0f0f0;
 }
