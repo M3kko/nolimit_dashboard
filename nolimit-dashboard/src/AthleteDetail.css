@@ -34,6 +34,7 @@
     background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
     display: flex;
     align-items: center;
+    justify-content: center;
     font-size: 1.75rem;
     font-weight: 600;
     color: #ffffff;
@@ -58,7 +59,7 @@
 .section-title-inline {
     font-size: 0.7rem;
     font-weight: 600;
-    text-transform: 1px;
+    text-transform: uppercase;
     letter-spacing: 1px;
     color: #666666;
     margin-bottom: 0.75rem;
@@ -126,8 +127,12 @@
     border-left: 3px solid #10b981;
 }
 
+.metric-card-compact.metric-good {
+    border-left: 3px solid #3b82f6;
+}
+
 .metric-card-compact.metric-moderate {
-    border-left: 3px solid #f59e0b
+    border-left: 3px solid #f59e0b;
 }
 
 .metric-card-compact.metric-low {
@@ -143,17 +148,6 @@
 
 .metric-card-small {
     background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    transition: all 0.2s;
-}
-
-.metric-card-small:hover {
-    border-color :#2a2a2a;
     border: 1px solid #1a1a1a;
     border-radius: 10px;
     padding: 1rem;
@@ -377,7 +371,7 @@
 .save-notes-btn-compact {
     background: #ffffff;
     color: #0a0a0a;
-    border:none;
+    border: none;
     padding: 0.625rem 1.5rem;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -392,5 +386,94 @@
 }
 
 .light-mode .athlete-detail-page {
+    background: #f5f5f5;
+}
 
+.light-mode .back-button {
+    color: #666666;
+}
+
+.light-mode .back-button:hover {
+    color: #1a1a1a;
+}
+
+.light-mode .athlete-detail-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.light-mode .athlete-detail-name {
+    color: #1a1a1a;
+}
+
+.light-mode .section-title-inline {
+    color: #666666;
+}
+
+.light-mode .metric-card-compact,
+.light-mode .metric-card-small,
+.light-mode .sleep-stat {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.light-mode .metric-card-compact:hover,
+.light-mode .metric-card-small:hover {
+    border-color: #cccccc;
+}
+
+.light-mode .metric-value-large,
+.light-mode .metric-value-medium,
+.light-mode .sleep-value {
+    color: #1a1a1a;
+}
+
+.light-mode .sleep-bar {
+    background: #e5e5e5;
+}
+
+.light-mode .sessions-table-container,
+.light-mode .notes-container-compact {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.light-mode .sessions-table thead {
+    background: #fafafa;
+}
+
+.light-mode .sessions-table td {
+    color: #1a1a1a;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.light-mode .sessions-table th {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.light-mode .sessions-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.light-mode .notes-input-compact {
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    color: #1a1a1a;
+}
+
+.light-mode .notes-input-compact:focus {
+    border-color: #cccccc;
+}
+
+.light-mode .save-notes-btn-compact {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.light-mode .save-notes-btn-compact:hover {
+    background: #333333;
+}
+
+.light-mode .athlete-detail-avatar {
+    background: linear-gradient(135deg, #e5e5e5 0%, #cccccc 100%);
+    color: #1a1a1a;
 }
