@@ -1,13 +1,30 @@
+/* Analytics Page Layout */
 .analytics-page {
     padding: 0;
     max-width: 1600px;
 }
 
-.analytics-page {
-    padding: 0;
-    max-width: 1600px;
+.analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
 }
 
+.analytics-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.25rem 0;
+}
+
+.analytics-header .subtitle {
+    font-size: 0.85rem;
+    color: #666666;
+    margin: 0;
+}
+
+/* Grid Layouts */
 .analytics-metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -22,18 +39,67 @@
     margin-bottom: 1.5rem;
 }
 
+/* Metric Cards (Top KPIs) */
+.metric-card {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.2s;
+}
+
+.metric-card:hover {
+    border-color: #2a2a2a;
+}
+
+.metric-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.metric-change {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.metric-change.positive { color: #10b981; }
+.metric-change.negative { color: #ef4444; }
+.metric-change.neutral { color: #666666; }
+
+/* Analytics Card (Container) */
 .analytics-card {
-    background: #ffffff;
+    background: #111111;
     border: 1px solid #1a1a1a;
     border-radius: 12px;
     padding: 1.25rem;
 }
 
-.analytics-card .section-title-inline {
-    margin-top: 0;
-    margin-bottom: 1rem; 
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
+.section-title-inline {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Status Distribution */
 .status-distribution {
     display: flex;
     flex-direction: column;
@@ -77,18 +143,11 @@
     transition: width 0.3s ease;
 }
 
-.status-active-fill {
-    background: #10b981;
-}
+.status-active-fill { background: #10b981; }
+.status-recovery-fill { background: #f59e0b; }
+.status-injury-fill { background: #ef4444; }
 
-.status-recovery-fill {
-    background: #f59e0b;
-}
-
-.status-injury-fill {
-    background: #ef4444;
-}
-
+/* Performance Distribution (Vertical Bars) */
 .performance-distribution {
     display: flex;
     justify-content: space-around;
@@ -120,21 +179,10 @@
     transition: height 0.3s ease;
 }
 
-.perf-bar-fill-vertical.excellent {
-    background: #10b981;
-}
-
-.perf-bar-fill-vertical.good {
-    background: #3b82f6;
-}
-
-.perf-bar-fill-vertical.moderate {
-    background: #f59e0b;
-}
-
-.perf-bar-fill-vertical.low {
-    background: #ef4444;
-}
+.perf-bar-fill-vertical.excellent { background: #10b981; }
+.perf-bar-fill-vertical.good { background: #3b82f6; }
+.perf-bar-fill-vertical.moderate { background: #f59e0b; }
+.perf-bar-fill-vertical.low { background: #ef4444; }
 
 .perf-label {
     font-size: 0.65rem;
@@ -145,8 +193,10 @@
 .perf-count {
     font-size: 1.25rem;
     font-weight: 600;
+    color: #ffffff;
 }
 
+/* Sport Breakdown Table */
 .sport-breakdown-table-container {
     background: #111111;
     border: 1px solid #1a1a1a;
@@ -170,11 +220,19 @@
     border-bottom: 1px solid #1a1a1a;
 }
 
+.sport-breakdown-table th:last-child {
+    text-align: right;
+}
+
 .sport-breakdown-table td {
     padding: 1rem 1.25rem;
     border-bottom: 1px solid #1a1a1a;
     color: #ffffff;
     font-size: 0.9rem;
+}
+
+.sport-breakdown-table td:last-child {
+    text-align: right;
 }
 
 .sport-breakdown-table tbody tr:last-child td {
@@ -183,6 +241,7 @@
 
 .sport-breakdown-table tbody tr {
     transition: background 0.2s;
+    cursor: pointer;
 }
 
 .sport-breakdown-table tbody tr:hover {
@@ -198,6 +257,39 @@
     color: #3b82f6;
 }
 
+.progress-cell-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-bar-mini {
+    flex: 1;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-mini-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-bar-mini-fill.excellent { background: #10b981; }
+.progress-bar-mini-fill.good { background: #3b82f6; }
+.progress-bar-mini-fill.moderate { background: #f59e0b; }
+.progress-bar-mini-fill.low { background: #ef4444; }
+
+.progress-text-mini {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Weekly Trends */
 .trends-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -218,14 +310,15 @@
     border-color: #2a2a2a;
 }
 
-.trend-card.current-weak {
+.trend-card.current-week {
     border-color: #3b82f6;
     background: linear-gradient(135deg, #111111 0%, #0f1419 100%);
 }
 
 .current-badge {
     position: absolute;
-    right: 0.75rem; 
+    top: 0.75rem;
+    right: 0.75rem;
     background: #3b82f6;
     color: #ffffff;
     font-size: 0.6rem;
@@ -263,76 +356,12 @@
 }
 
 .trend-metric-value {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.performers-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.performer-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    background: #0a0a0a;
-    border-radius: 10px;
-    transition: all 0.2s;
-}
-
-.performer-item:hover {
-    background: #0f0f0f;
-}
-
-.performer-rank {
-    width: 24px;
-    height: 24px;
-    background: #1a1a1a;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #666666;
-}
-
-.performer-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.attention-avtar {
-    background: linear-gradient(135deg, #1a0f0f 0%, #2a1a1a 100%);
-}
-
-.performer-info {
-    flex: 1;
-}
-
-.performer-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.performer-progress {
     font-size: 1.1rem;
     font-weight: 600;
+    color: #ffffff;
 }
 
+/* Attention List */
 .attention-list {
     display: flex;
     flex-direction: column;
@@ -346,13 +375,64 @@
     padding: 0.75rem;
     background: #0a0a0a;
     border-radius: 10px;
-    border-left: 3px solid #ef4444
+    border-left: 3px solid #ef4444;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.attention-indicators {
+.attention-item:hover {
+    background: #0f0f0f;
+}
+
+.attention-item.recovery {
+    border-left-color: #f59e0b;
+}
+
+.attention-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a0f0f 0%, #2a1a1a 100%);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.attention-info {
+    flex: 1;
+}
+
+.attention-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.125rem;
+}
+
+.attention-sport {
+    font-size: 0.7rem;
+    color: #666666;
+}
+
+.attention-status {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.attention-status.injury {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.attention-status.recovery {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
 }
 
 .no-attention {
@@ -360,160 +440,103 @@
     font-size: 0.9rem;
     padding: 1rem;
     text-align: center;
+    background: rgba(16, 185, 129, 0.05);
+    border-radius: 8px;
 }
+
+/* Activity Summary */
+.activity-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.activity-stat {
+    text-align: center;
+    padding: 1rem;
+    background: #0a0a0a;
+    border-radius: 10px;
+}
+
+.activity-stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+
+.activity-stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666666;
+}
+
+/* Light Mode */
+.light-mode .analytics-header h1 { color: #1a1a1a; }
+
+.light-mode .metric-card {
+    background: #ffffff;
+    border-color: #e5e5e5;
+}
+
+.light-mode .metric-card:hover { border-color: #cccccc; }
+.light-mode .metric-value { color: #1a1a1a; }
 
 .light-mode .analytics-card {
     background: #ffffff;
-    border: 1px solid #e5e5e5;
+    border-color: #e5e5e5;
 }
 
-.light-mode .status-label,
-.light-mode .performer-name {
-    color: #1a1a1a;
-}
+.light-mode .section-title,
+.light-mode .section-title-inline { color: #1a1a1a; }
 
-.light-mode .status-bar-track,
-.light0mode .performer-name {
-    color: #1a1a1a;
-}
+.light-mode .status-label { color: #1a1a1a; }
 
 .light-mode .status-bar-track,
-.light-mode .perf-bar-vertical {
-    background: #e5e5e5;
-}
+.light-mode .perf-bar-vertical,
+.light-mode .progress-bar-mini { background: #e5e5e5; }
+
+.light-mode .perf-count { color: #1a1a1a; }
 
 .light-mode .sport-breakdown-table-container {
     background: #ffffff;
-    border: 1px solid #e5e5e5;
+    border-color: #e5e5e5;
 }
 
-.light-mode .sport-breakdown-table thead {
-    background: #fafafa;
-}
+.light-mode .sport-breakdown-table thead { background: #fafafa; }
 
 .light-mode .sport-breakdown-table td {
     color: #1a1a1a;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom-color: #e5e5e5;
 }
 
-.light-mode .sport-breakdown-table th {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.light-mode .sport-breakdown-table tbody tr:hover {
-    background: #fafafa;
-}
+.light-mode .sport-breakdown-table th { border-bottom-color: #e5e5e5; }
+.light-mode .sport-breakdown-table tbody tr:hover { background: #fafafa; }
 
 .light-mode .trend-card {
     background: #ffffff;
-    border: 1px solid #e5e5e5;
+    border-color: #e5e5e5;
 }
 
-
-.light-mode .trend-card:hover {
-    border-color: #cccccc;
-}
+.light-mode .trend-card:hover { border-color: #cccccc; }
 
 .light-mode .trend-card.current-week {
     background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
 }
 
-.light-mode .trend-metric-value {
+.light-mode .trend-metric-value { color: #1a1a1a; }
+
+.light-mode .attention-item { background: #fafafa; }
+.light-mode .attention-item:hover { background: #f0f0f0; }
+.light-mode .attention-name { color: #1a1a1a; }
+
+.light-mode .attention-avatar {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
     color: #1a1a1a;
 }
 
-.light-mode .performer-item, 
-.light-mode .attention-item {
-    background: #fafafa;
-}
+.light-mode .activity-stat { background: #fafafa; }
+.light-mode .activity-stat-value { color: #1a1a1a; }
 
-.light-mode .performer-item:hover {
-    background: #f0f0f0;
-}
-
-.analytics-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-}
-
-.analytics-header h1 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0 0 0.25rem 0;
-}
-
-.analytics-header .subtitle {
-    font-size: 0.85rem;
-    color: #666666;
-    margin: 0;
-}
-
-.metric-card {
-    background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: all 0.2s;
-}
-
-.metric-card:hover {
-    border-color: #2a2a2a;
-}
-
-.metric-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #666666;
-    margin-bottom: 0.5rem;
-}
-
-.metric-value {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1;
-}
-
-.metric-change {
-    font-size: 0.75rem;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.metric-change.positive { color: #10b981; }
-.metric-change.negative { color: #ef4444; }
-.metric-change.neutral { color: #666666; }
-
-.analytics-card {
-    background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 12px;
-    padding: 1.25rem;
-}
-
-.analytics-card .section-title-inline {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.section-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1rem;
-}
-
-.perf-count {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #ffffff;
-}
+.light-mode .no-attention { background: rgba(16, 185, 129, 0.08); }
