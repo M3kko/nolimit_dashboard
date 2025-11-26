@@ -39,4 +39,13 @@ export const getAthleteHistoricalData = (athleteId) => {
             avgStrain: Math.min(18, Math.max(5, +(athlete.baseStrain + (Math.random() - 0.5) * 4).toFixed(1))),
         });
     }
-}
+
+    const sessionBreakdown = [
+        { type: 'Strength', sessions: Math.floor(Math.random() * 8) + 4, color: '#3b82f6' },
+        { type: 'Cardio', sessions: Math.floor(Math.random() * 6) + 3, color: '#10b981' },
+        { type: 'HIIT', sessions: Math.floor(Math.random() * 5) + 2, color: '#f59e0b' },
+        { type: 'Recovery', sessions: Math.floor(Math.random() * 4) + 2, color: '#8b5cf6' },
+    ];
+
+    return { dailyData, weeklyData, sessionBreakdown };
+};
