@@ -30,7 +30,7 @@ const Dashboard = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon }) =
     const activeAthletes = athletesData.filter(athlete => athlete.status === 'active').length;
 
     const handleAthleteClick = (athleteId) => {
-        navigate(`/athlete/${athleteId}`);
+        navigate(`/athlete/${athleteId}`, { state: { from: 'dashboard' } });
     };
 
     return (

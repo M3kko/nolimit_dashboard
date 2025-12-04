@@ -1,12 +1,19 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import './AthleteDetail.css';
+import { getAthleteHistoricalData } from './data/athleteHistoricalData';
+import { RecoveryChart, HRVChart, StrainChart, SleepChart, WeeklyTrendChart, SessionPieChart } from './components/AthleteCharts';
 
 const AthleteDetail = ({ athletesData }) => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const fromPage = location.state?.from || 'athletes';
 
     const athlete = athletesData.find(a => a.id === parseInt(id));
+    const [timeRange, setTimeRange] = React.useState('30d');
+    const historicalData = getAthleteHistoricalData(parseInt(id));
+    const filteredData = historicalData.dailyData.slice(-(timeRange === '7d' ? 7 : timeRange === '14d' ? 14 : 30));
 
     if (!athlete) {
         return (
@@ -116,7 +123,7 @@ const AthleteDetail = ({ athletesData }) => {
 
     return (
         <div className="athlete-detail-page">
-            <button className="back-button" onClick={() => navigate('/')}>
+            <button className="back-button" onClick={() => navigate(fromPage === 'dashboard' ? '/' : '/athletes')}>
             ← Back
             </button>
 
@@ -308,7 +315,69 @@ const AthleteDetail = ({ athletesData }) => {
                 </table>
             </div>
 
-            {/* Coach Notes */}
+            {/* Analytics Charts */}
+            <div className="charts-section">
+                <div className="section-title-inline" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>Performance Analytics</span>
+                    <div className="time-filter">
+                        <button className={`time-filter-btn ${timeRange === '7d' ? 'active' : ''}`} onClick={() => setTimeRange('7d')}>7D</button>
+                        <button className={`time-filter-btn ${timeRange === '14d' ? 'active' : ''}`} onClick={() => setTimeRange('14d')}>14D</button>
+                        <button className={`time-filter-btn ${timeRange === '30d' ? 'active' : ''}`} onClick={() => setTimeRange('30d')}>30D</button>
+                    </div>
+                </div>
+
+                <div className="charts-grid">
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Recovery Score</span>
+                            <span className="chart-period">Daily</span>
+                        </div>
+                        <RecoveryChart data={filteredData} />
+                    </div>
+
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Heart Rate Variability</span>
+                            <span className="chart-period">Daily</span>
+                        </div>
+                        <HRVChart data={filteredData} />
+                    </div>
+
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Daily Strain</span>
+                            <span className="chart-period">Daily</span>
+                        </div>
+                        <StrainChart data={filteredData} />
+                    </div>
+
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Sleep Duration</span>
+                            <span className="chart-period">vs 8h target</span>
+                        </div>
+                        <SleepChart data={filteredData} />
+                    </div>
+
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Weekly Trends</span>
+                            <span className="chart-period">8 weeks</span>
+                        </div>
+                        <WeeklyTrendChart data={historicalData.weeklyData} />
+                    </div>
+
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <span className="chart-title">Session Types</span>
+                            <span className="chart-period">30 days</span>
+                        </div>
+                        <SessionPieChart data={historicalData.sessionBreakdown} />
+                    </div>
+                </div>
+            </div>
+
+
             <div className="section-title-inline">Coach Notes</div>
             <div className="notes-container-compact">
                 <textarea

@@ -81,7 +81,7 @@ function App() {
     } else if (location.pathname === '/analytics') {
       setActiveNav('analytics');
     } else if (location.pathname.startsWith('/athlete/')) {
-      setActiveNav('dashboard');
+      setActiveNav(location.state?.from || 'athletes');
     }
   }, [location]);
 
@@ -110,12 +110,6 @@ function App() {
             onClick={() => navigate('/analytics')}
             >
               Analytics
-            </li>
-            <li
-            className={`nav-item ${activeNav === 'schedule' ? 'active' : ''}`}
-            onClick={() => setActiveNav('schedule')}
-            >
-              Schedule
             </li>
             <li
             className={`nav-item ${activeNav === 'settings' ? 'active' : ''}`}

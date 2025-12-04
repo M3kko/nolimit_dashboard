@@ -118,7 +118,7 @@ const Athletes = ({ athletesData, darkMode, setDarkMode, SunIcon, MoonIcon}) => 
                     <div
                         key={athlete.id}
                         className="athlete-card"
-                        onClick={() => navigate(`/athlete/${athlete.id}`)}
+                        onClick={() => navigate(`/athlete/${athlete.id}`, { state: { from: 'athletes' } })}
                     >
                         <div className="athlete-card-header">
                             <div className="athlete-avatar-large">
