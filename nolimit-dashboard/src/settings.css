@@ -77,7 +77,7 @@
     transition: background 0.2s;
 }
 
-.toggle-switch-active {
+.toggle-switch.active {
     background: #10b981;
 }
 
@@ -168,5 +168,62 @@
 }
 
 .settings-btn.danger:hover {
-    
+    background: #dc2626;
+}
+
+.light-mode .settings-header h1 {
+    color: #1a1a1a;
+}
+
+.light-mode .settings-section {
+    background: #ffffff;
+    border-color: #e5e5e5;
+}
+
+.light-mode .settings-section-title {
+    border-bottom-color: #e5e5e5;
+}
+
+.light-mode .settings-item {
+    border-bottom-color: #e5e5e5;
+}
+
+.light-mode .settings-item-label {
+    color: #1a1a1a;
+}
+
+.light-mode .toggle-switch {
+    background: #e5e5e5;
+}
+
+.light-mode .settings-select,
+.light-mode .settings-input {
+    background: #fafafa;
+    border-color: #e5e5e5;
+    color: #1a1a1a;
+}
+
+.light-mode .settings-select:focus,
+.light-mode .settings-input:focus {
+    border-color: #cccccc;
+}
+
+.light-mode .settings-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.light-mode .settings-btn:hover {
+    background: #333333;
+}
+
+.light-mode .settings-btn.secondary {
+    background: transparent;
+    color: #1a1a1a;
+    border-color: #e5e5e5;
+}
+
+.light-mode .settings-btn.secondary:hover {
+    border-color: #cccccc;
+    background: #fafafa;
 }
