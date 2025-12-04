@@ -3,6 +3,9 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import './AthleteDetail.css';
 import { getAthleteHistoricalData } from './data/athleteHistoricalData';
 import { RecoveryChart, HRVChart, StrainChart, SleepChart, WeeklyTrendChart, SessionPieChart } from './components/AthleteCharts';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 const AthleteDetail = ({ athletesData }) => {
     const { id } = useParams();
@@ -120,6 +123,22 @@ const AthleteDetail = ({ athletesData }) => {
         { id: 4, date: '2025-11-16', type: 'Strength Training', duration: '50 min', avgHR: 138, maxHR: 182, strain: 17.5 },
         { id: 5, date: '2025-11-15', type: 'HIIT', duration: '35 min', avgHR: 165, maxHR: 189, strain: 18.9 },
     ];
+
+    const exportToPDF = async () => {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+
+        const darkBg = [17, 17, 17];
+        const cardBg = [26, 26, 26];
+        const white = [255, 255, 255];
+        const gray = [102, 102, 102];
+        const green = [16, 185, 129];
+        const blue = [59, 130, 246];
+        const purple = [139, 92, 246];
+        const amber = [245, 158, 11];
+
+        
+    }
 
     return (
         <div className="athlete-detail-page">
