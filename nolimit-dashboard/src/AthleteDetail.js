@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 
-const AthleteDetail = ({ athletesData }) => {
+const AthleteDetail = ({ athletesData, darkMode }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -125,243 +125,358 @@ const AthleteDetail = ({ athletesData }) => {
     ];
 
     const exportToPDF = async () => {
+        // Temporarily force light mode on charts for PDF export
+        const chartsSection = document.querySelector('.charts-grid');
+        const chartCards = chartsSection.querySelectorAll('.chart-card');
+        const chartTitles = chartsSection.querySelectorAll('.chart-title');
+
+        // Store original styles
+        const originalStyles = [];
+        chartCards.forEach((card, i) => {
+            originalStyles[i] = {
+                background: card.style.background,
+                borderColor: card.style.borderColor
+            };
+            card.style.background = '#ffffff';
+            card.style.borderColor = '#e5e5e5';
+        });
+
+        const originalTitleColors = [];
+        chartTitles.forEach((title, i) => {
+            originalTitleColors[i] = title.style.color;
+            title.style.color = '#1a1a1a';
+        });
+
+        // Capture charts
+        const chartCanvas = await html2canvas(chartsSection, {
+            backgroundColor: '#ffffff',
+            scale: 2
+        });
+
+        // Restore original styles
+        chartCards.forEach((card, i) => {
+            card.style.background = originalStyles[i].background;
+            card.style.borderColor = originalStyles[i].borderColor;
+        });
+        chartTitles.forEach((title, i) => {
+            title.style.color = originalTitleColors[i];
+        });
+
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 15;
+        const contentWidth = pageWidth - (margin * 2);
 
-        const darkBg = [17, 17, 17];
-        const cardBg = [26, 26, 26];
-        const white = [255, 255, 255];
-        const gray = [102, 102, 102];
-        const green = [16, 185, 129];
-        const blue = [59, 130, 246];
-        const purple = [139, 92, 246];
-        const amber = [245, 158, 11];
+        // Helper functions
+        const drawLine = (y) => {
+            pdf.setDrawColor(200, 200, 200);
+            pdf.setLineWidth(0.1);
+            pdf.line(margin, y, pageWidth - margin, y);
+        };
 
-        pdf.setFillColor(...darkBg);
-        pdf.rect(0, 0, pageWidth, pdf.internal.pageSize.getHeight(), 'F');
+        const sectionTitle = (title, y) => {
+            pdf.setFontSize(11);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(40, 40, 40);
+            pdf.text(title, margin, y);
+            return y + 2;
+        };
 
-        let y = 20;
+        const addNewPage = () => {
+            pdf.addPage();
+            return 20;
+        };
 
-        pdf.setFillColor(...cardBg);
-        pdf.roundedRect(15, y, pageWidth - 30, 35, 3, 3, 'F');
+        let y = 15;
 
-        pdf.setFillColor(...green);
-        pdf.circle(30, y + 17, 10, 'F');
-        pdf.setTextColor(...white);
-        pdf.setFontSize(14);
+        // === HEADER ===
+        pdf.setFillColor(245, 245, 245);
+        pdf.rect(0, 0, pageWidth, 45, 'F');
+
+        pdf.setFontSize(20);
         pdf.setFont('helvetica', 'bold');
-        pdf.text(athlete.name.charAt(0), 27, y + 21);
+        pdf.setTextColor(30, 30, 30);
+        pdf.text('ATHLETE PERFORMANCE REPORT', margin, 20);
 
-        pdf.setFontSize(18);
-        pdf.setTextColor(...white);
-        pdf.text(athlete.name, 45, y + 14);
         pdf.setFontSize(10);
-        pdf.setTextColor(...gray);
-        pdf.text(athlete.sport, 45, y +22);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setTextColor(100, 100, 100);
+        pdf.text(`Confidential Medical/Training Document`, margin, 27);
 
-        const statusColor = athlete.status.tolowerCase() === 'active' ? green : athlete.status.toLowerCase() === 'recovery' ? amber : [239, 68, 68];
-        pdf.setFillColor(...statusColor);
-        pdf.roundedRect(pageWidth - 50, y +10, 25, 8, 2, 2, 'F');
-        pdf.setFontSize(7);
-        pdf.text(athlete.status, pageWidth - 45, y + 15);
+        pdf.setFontSize(9);
+        pdf.text(`Generated: ${new Date().toLocaleString()}`, pageWidth - margin - 50, 20);
+        pdf.text(`Report ID: ${Date.now().toString(36).toUpperCase()}`, pageWidth - margin - 50, 26);
 
-        pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
-        pdf.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth - 55, y + 30);
+        y = 55;
 
-        y += 45;
+        // === ATHLETE INFORMATION ===
+        y = sectionTitle('ATHLETE INFORMATION', y);
+        y += 5;
 
-        pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
-        pdf.text("TODAY'S SNAPSHOT", 15, y);
-        y += 8;
+        pdf.setFontSize(9);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setTextColor(60, 60, 60);
 
-        const primarymetrics = [
-            { label: 'Recovery', value: `${biometrics.recovery.score}%`, color: green },
-            { label: 'Strain', value: biometrics.strain.daily, color: amber },
-            { label: 'Sleep', value: `${biometrics.sleep.total}h`, color: purple },
-            { label: 'HRV', value: `${biometrics.hrv.value} ms`, color: blue }
+        const infoCol1 = [
+            ['Name:', athlete.name],
+            ['Sport:', athlete.sport],
+            ['Status:', athlete.status.toUpperCase()],
+            ['Athlete ID:', `ATH-${String(athlete.id).padStart(4, '0')}`]
         ];
 
-        const cardWidth = (pageWidth - 45) / 4;
-        primarymetrics.forEach((metric, i) => {
-            const x = 15 + (i * (cardWidth + 5));
-            pdf.setFillColor(...cardBg);
-            pdf.roundedRect(x, y, cardWidth, 28, 2, 2, 'F');
-
-            pdf.setFillColor(...metric.color);
-            pdf.rect(x, y + 2, 1.5, 24, 'F');
-
-            pdf.setFontSize(7);
-            pdf.setTextColor(...gray);
-            pdf.text(metric.label.toUpperCase(), x + 5, y + 8);
-
-            pdf.setFontSize(16);
-            pdf.setTextColor(...white);
-            pdf.text(metric.label.toUpperCase(), x + 5, y + 8);
-
-            pdf.setFillColor(...metric.color);
-            pdf.rect(x, y + 2, 1.5, 24, 'F');
-            
-            pdf.setFontSize(7);
-            pdf.setTextColor(...gray);
-            pdf.text(metric.label.toUpperCase(), x +5, y + 8);
-
-            pdf.setFontSize(16);
-            pdf.setTextColor(...white);
-            pdf.setFont('helvetica', bold);
-            pdf.text(String(metric.value), x + 5, y +20);
-            pdf.setFont('hlevetica', 'normal');
-        });
-
-        y += 38;
-
-        pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
-        pdf.text("DETAILED BIOMETRICS", 15, y);
-        y += 8;
-
-        const detailedMetrics = [
-            { label: 'Resting HR', value: biometrics.rhr.value, unit: 'bpm' },
-            { label: 'VO₂ Max', value: biometrics.vo2max.value, unit: 'ml/kg/min' },
-            { label: 'SpO₂', value: biometrics.spo2.value, unit: '%' },
-            { label: 'Resp. Rate', value: biometrics.respiratoryRate.value, unit: 'brpm' },
-            { label: 'Skin Temp', value: biometrics.skinTemp.value, unit: '°C' },
-            { label: 'Sleep Eff.', value: biometrics.sleep.efficiency, unit: '%' }
+        const infoCol2 = [
+            ['Age:', '24 years'],
+            ['Height:', '183 cm / 6\'0"'],
+            ['Weight:', '78 kg / 172 lbs'],
+            ['Body Fat:', '12.4%']
         ];
 
-        const smallCardWiddth = (pageWidth - 40) / 6;
-        detailedMetrics.forEach((metric, i) => {
-            const x = 15 + (i * (smallCardWidth + 3));
-            pdf.setFillColor(...cardBg);
-            pdf.roundedRect(x, y, smallCardWidth, 24, 2, 2, 'F');
-
-            pdf.setFontSize(6);
-            pdf.setTextColor(...gray);
-            pdf.text(metric.label.toUpperCase(), x + 3, y + 7);
-
-            pdf.setFontSize(12);
-            pdf.setTextColor(...white);
+        infoCol1.forEach((row, i) => {
             pdf.setFont('helvetica', 'bold');
-            pdf.text(String(metric.value), x +3, y +15);
+            pdf.text(row[0], margin, y + (i * 5));
             pdf.setFont('helvetica', 'normal');
-
-            pdf.setFontSize(6);
-            pdf.setTextColor(...gray);
-            pdf.text(metric.unit, x + 3, y + 20);
+            pdf.text(row[1], margin + 25, y + (i * 5));
         });
 
-        y += 34;
+        infoCol2.forEach((row, i) => {
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(row[0], margin + 80, y + (i * 5));
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(row[1], margin + 105, y + (i * 5));
+        });
 
-        pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
-        pdf.text("SLEEP BREAKDOWN", 15, y);
+        y += 25;
+        drawLine(y);
         y += 8;
 
-        const sleepData = [
-            { label: 'Deep', value: biometrics.sleep.deep, color: purple },
-            { label: 'REM', value: biometrics.sleep.rem, color: blue },
-            { label: 'Light', value: (biometrics.sleep.total - biometrics.sleep.deep - biometrics.sleep.rem).toFixed(1), color: green }
+        // === CURRENT BIOMETRICS ===
+        y = sectionTitle('CURRENT BIOMETRICS (Today\'s Reading)', y);
+        y += 6;
+
+        pdf.setFontSize(8);
+        const bioData = [
+            ['METRIC', 'VALUE', 'UNIT', 'TREND', 'STATUS', 'REFERENCE RANGE'],
+            ['Recovery Score', biometrics.recovery.score, '%', biometrics.recovery.trend, biometrics.recovery.status.toUpperCase(), '70-100% optimal'],
+            ['HRV (RMSSD)', biometrics.hrv.value, 'ms', biometrics.hrv.trend, biometrics.hrv.status.toUpperCase(), '50-100ms normal'],
+            ['Resting Heart Rate', biometrics.rhr.value, 'bpm', biometrics.rhr.trend, biometrics.rhr.status.toUpperCase(), '40-60 bpm athletic'],
+            ['Daily Strain', biometrics.strain.daily, '/21', biometrics.strain.trend, biometrics.strain.status.toUpperCase(), '10-14 moderate'],
+            ['VO2 Max', biometrics.vo2max.value, 'ml/kg/min', biometrics.vo2max.trend, biometrics.vo2max.status.toUpperCase(), '>50 excellent'],
+            ['SpO2', biometrics.spo2.value, '%', biometrics.spo2.trend, biometrics.spo2.status.toUpperCase(), '95-100% normal'],
+            ['Respiratory Rate', biometrics.respiratoryRate.value, 'brpm', biometrics.respiratoryRate.trend, biometrics.respiratoryRate.status.toUpperCase(), '12-20 brpm normal'],
+            ['Skin Temperature', biometrics.skinTemp.value, '°C', biometrics.skinTemp.trend, biometrics.skinTemp.status.toUpperCase(), '33-34°C normal']
         ];
 
-        const sleepCardWidth = (pageWidth - 40) / 3;
-        sleepData.forEach((sleep, i) => {
-            const x = 15 + (i * (sleepCardWidth + 5));
-            pdf.setFillColor(...cardBg);
-            pdf.roundedRect(x, y, sleepCardWidth, 22, 2, 2, 'F');
+        const colWidths = [35, 18, 22, 15, 25, 40];
+        let xPos = margin;
 
-            pdf.setFontSize(7);
-            pdf.setTextColor(...gray);
-            pdf.text(sleep.label.toUpperCase(), x + 5, y + 7);
-
-            pdf.seFontSize(14);
-            pdf.setTextColor(...white);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text(`${sleep.value}h`, x + 5, y + 16);
-            pdf.setFont('helvetica', 'normal');
-
-            const barWidth = sleepCardWidth - 10;
-            const fillWidth = (sleep.value / biometrics.sleep.total) * barWidth;
-            pdf.setFillColor(42, 42, 42);
-            pdf.roundedRect(x + 5, y + 18, barWidth, 2, 1, 1, 'F');
-            pdf.setFillColor(...sleep.color);
-            pdf.roundedRect(x + 5, y + 18, fillWidth, 2, 1, 1, 'F');
-        });
-
-        y += 32;
-
-        pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
-        pdf.text("RECENT SESSIONS", 15, y);
-        y += 8;
-
-        pdf.setFillColor(10, 10, 10);
-        pdf.roundedRect(15, y, pageWidth -30, 8, 2, 2, 'F');
-        pdf.setFontSizes(6);
-        pdf.setTextColor(...gray);
-        const headers = ['DATE', 'TYPE', 'DURATION', 'AVG HR', 'MAX HR', 'STRAIN'];
-        const colWidths = [25, 40, 25, 25, 25, 20];
-        let xPos = 20;
-        headers.forEach((header, i) => {
-            pdf.text(header, xPos, y + 5);
+        // Table header
+        pdf.setFillColor(50, 50, 50);
+        pdf.rect(margin, y, contentWidth, 6, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFont('helvetica', 'bold');
+        bioData[0].forEach((header, i) => {
+            pdf.text(header, xPos + 2, y + 4);
             xPos += colWidths[i];
         });
-        y += 10;
+        y += 6;
 
-        recentSessions.slice(0, 5).forEach((session, i) => {
-            pdf.setFillColor(...(i % 2 === 0 ? cardBg : darkBg));
-            pdf.rect(15, y, pageWidth - 30, 7, 'F');
-
-            pdf.setFontSize(7);
-            pdf.setTextColor(...white);
-
-            xPos = 20;
-            pdf.setTextColor(...gray);
-            pdf.text(session.date, xPos, y + 5);
-            xPos += colWidths[0];
-
-            pdf.setTextColor(...white);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text(session.type, xPos, y + 5);
-            pdf.setFont('helvetica', 'normal');
-            xPos += colWidths[1];
-
-            pdf.setTextColor(...white);
-            pdf.text(session.duration, xPos, y + 5);
-            xPos += colWidths[2];
-
-            pdf.text(`${session.avgHR} bpm`, xPos, y + 5);
-            xPos += colWidths[3];
-
-            pdf.text(`${session.maxHR} bpm`, xPos, y + 5);
-            xPos += colWidths[4];
-
-            const strainColor = session.strain > 15 ? [239, 68, 68] : session.strain > 10 ? amber : green;
-            pdf.setTextColor(...strainColor);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text(String(session.strain), xPos, y + 5);
-            pdf.setFont('helvetica', 'normal');
-
-            y += 7;
+        // Table rows
+        pdf.setTextColor(40, 40, 40);
+        bioData.slice(1).forEach((row, rowIndex) => {
+            if (rowIndex % 2 === 0) {
+                pdf.setFillColor(248, 248, 248);
+                pdf.rect(margin, y, contentWidth, 5, 'F');
+            }
+            xPos = margin;
+            row.forEach((cell, i) => {
+                pdf.setFont('helvetica', i === 0 ? 'bold' : 'normal');
+                if (i === 4) {
+                    const status = String(cell);
+                    if (status === 'EXCELLENT') pdf.setTextColor(16, 185, 129);
+                    else if (status === 'GOOD') pdf.setTextColor(59, 130, 246);
+                    else if (status === 'MODERATE') pdf.setTextColor(245, 158, 11);
+                    else pdf.setTextColor(239, 68, 68);
+                }
+                pdf.text(String(cell), xPos + 2, y + 3.5);
+                pdf.setTextColor(40, 40, 40);
+                xPos += colWidths[i];
+            });
+            y += 5;
         });
 
-        y += 10;
+        y += 5;
+        drawLine(y);
+        y += 8;
 
-        pdf.setFillColor(...cardBg);
-        pdf.roundedRect(15, y, pageWidth - 30, 12, 2, 2, 'F');
+        // === SLEEP ANALYSIS ===
+        y = sectionTitle('SLEEP ANALYSIS', y);
+        y += 6;
+
+        const sleepAnalysis = [
+            ['Total Sleep Duration', `${biometrics.sleep.total} hours`, biometrics.sleep.trend + 'h from avg', '7-9 hours recommended'],
+            ['Deep Sleep', `${biometrics.sleep.deep} hours (${((biometrics.sleep.deep/biometrics.sleep.total)*100).toFixed(0)}%)`, '-', '1.5-2 hours (13-23%)'],
+            ['REM Sleep', `${biometrics.sleep.rem} hours (${((biometrics.sleep.rem/biometrics.sleep.total)*100).toFixed(0)}%)`, '-', '1.5-2 hours (20-25%)'],
+            ['Light Sleep', `${(biometrics.sleep.total - biometrics.sleep.deep - biometrics.sleep.rem).toFixed(1)} hours`, '-', '50% of total'],
+            ['Sleep Efficiency', `${biometrics.sleep.efficiency}%`, '-', '>85% good']
+        ];
+
+        pdf.setFontSize(8);
+        sleepAnalysis.forEach((row, i) => {
+            if (i % 2 === 0) {
+                pdf.setFillColor(248, 248, 248);
+                pdf.rect(margin, y, contentWidth, 5, 'F');
+            }
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(row[0], margin + 2, y + 3.5);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(row[1], margin + 50, y + 3.5);
+            pdf.text(row[2], margin + 95, y + 3.5);
+            pdf.setTextColor(100, 100, 100);
+            pdf.text(row[3], margin + 125, y + 3.5);
+            pdf.setTextColor(40, 40, 40);
+            y += 5;
+        });
+
+        y += 5;
+        drawLine(y);
+        y += 8;
+
+        // === CALORIC/ENERGY DATA ===
+        y = sectionTitle('ENERGY EXPENDITURE', y);
+        y += 6;
+
+        pdf.setFontSize(9);
+        pdf.setFont('helvetica', 'normal');
+        pdf.text(`Total Daily Energy Expenditure: ${biometrics.calories.total} kcal`, margin, y);
+        pdf.text(`Active Calories: ${biometrics.calories.active} kcal`, margin + 70, y);
+        pdf.text(`Basal Metabolic Rate: ${biometrics.calories.total - biometrics.calories.active} kcal (est.)`, margin + 120, y);
+        y += 8;
+
+        drawLine(y);
+        y += 8;
+
+        // === TRAINING SESSIONS ===
+        y = sectionTitle('RECENT TRAINING SESSIONS', y);
+        y += 6;
+
+        const sessionHeaders = ['DATE', 'SESSION TYPE', 'DURATION', 'AVG HR', 'MAX HR', 'STRAIN', 'ZONE'];
+        const sessionColWidths = [22, 35, 20, 20, 20, 18, 30];
+
+        pdf.setFillColor(50, 50, 50);
+        pdf.rect(margin, y, contentWidth, 6, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFont('helvetica', 'bold');
         pdf.setFontSize(7);
-        pdf.setTextColor(...gray);
-        pdf.text('NoLimit Athletic Performance Dashboard', 20, y + 7);
-        pdf.text(`Report for ${athlete.name} • ${new Date().toLocaleDateString()}`, pageWidth - 80, y + 7);
+        xPos = margin;
+        sessionHeaders.forEach((header, i) => {
+            pdf.text(header, xPos + 1, y + 4);
+            xPos += sessionColWidths[i];
+        });
+        y += 6;
 
-        pdf.save(`${athlete.name.toLowerCase().replace(' ', '_')}_stats.pdf`);
+        pdf.setTextColor(40, 40, 40);
+        recentSessions.forEach((session, rowIndex) => {
+            if (rowIndex % 2 === 0) {
+                pdf.setFillColor(248, 248, 248);
+                pdf.rect(margin, y, contentWidth, 5, 'F');
+            }
+            xPos = margin;
+            const zone = session.strain > 15 ? 'HIGH INTENSITY' : session.strain > 10 ? 'MODERATE' : 'RECOVERY';
+            const rowData = [session.date, session.type, session.duration, `${session.avgHR} bpm`, `${session.maxHR} bpm`, session.strain.toString(), zone];
+            rowData.forEach((cell, i) => {
+                pdf.setFont('helvetica', i === 1 ? 'bold' : 'normal');
+                if (i === 6) {
+                    if (cell === 'HIGH INTENSITY') pdf.setTextColor(239, 68, 68);
+                    else if (cell === 'MODERATE') pdf.setTextColor(245, 158, 11);
+                    else pdf.setTextColor(16, 185, 129);
+                }
+                pdf.text(cell, xPos + 1, y + 3.5);
+                pdf.setTextColor(40, 40, 40);
+                xPos += sessionColWidths[i];
+            });
+            y += 5;
+        });
+
+        // === PAGE 2: CHARTS ===
+        y = addNewPage();
+
+        pdf.setFillColor(245, 245, 245);
+        pdf.rect(0, 0, pageWidth, 20, 'F');
+        pdf.setFontSize(14);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setTextColor(30, 30, 30);
+        pdf.text('PERFORMANCE ANALYTICS & TRENDS', margin, 13);
+
+        y = 30;
+
+        // Add charts image
+        const imgData = chartCanvas.toDataURL('image/png');
+        const imgWidth = contentWidth;
+        const imgHeight = (chartCanvas.height / chartCanvas.width) * imgWidth;
+        pdf.addImage(imgData, 'PNG', margin, y, imgWidth, Math.min(imgHeight, 180));
+
+        y += Math.min(imgHeight, 180) + 10;
+
+        // === CLINICAL NOTES SECTION ===
+        if (y > pageHeight - 60) {
+            y = addNewPage();
+        }
+
+        drawLine(y);
+        y += 8;
+        y = sectionTitle('CLINICAL NOTES / OBSERVATIONS', y);
+        y += 5;
+
+        pdf.setFontSize(8);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setTextColor(100, 100, 100);
+
+        const notes = [
+            '• Recovery metrics indicate athlete is responding well to current training load.',
+            '• HRV trending upward suggests good adaptation and readiness for increased intensity.',
+            '• Sleep architecture shows adequate deep sleep; consider optimizing REM if performance plateaus.',
+            '• Recommend maintaining current strain levels (10-15) for optimal progressive overload.',
+            '• SpO2 and respiratory rate within normal limits - no respiratory concerns noted.'
+        ];
+
+        notes.forEach(note => {
+            pdf.text(note, margin, y);
+            y += 5;
+        });
+
+        y += 5;
+        drawLine(y);
+        y += 8;
+
+        // === FOOTER ===
+        pdf.setFontSize(7);
+        pdf.setTextColor(150, 150, 150);
+        pdf.text('CONFIDENTIAL - For authorized medical and coaching personnel only', margin, pageHeight - 15);
+        pdf.text(`NoLimit Athletic Performance System | ${athlete.name} | ${new Date().toLocaleDateString()}`, margin, pageHeight - 10);
+        pdf.text('Page 2 of 2', pageWidth - margin - 20, pageHeight - 10);
+
+        // Add page number to first page
+        pdf.setPage(1);
+        pdf.setFontSize(7);
+        pdf.setTextColor(150, 150, 150);
+        pdf.text('CONFIDENTIAL - For authorized medical and coaching personnel only', margin, pageHeight - 15);
+        pdf.text(`NoLimit Athletic Performance System | ${athlete.name} | ${new Date().toLocaleDateString()}`, margin, pageHeight - 10);
+        pdf.text('Page 1 of 2', pageWidth - margin - 20, pageHeight - 10);
+
+        pdf.save(`${athlete.name.toLowerCase().replace(' ', '_')}_medical_report_${new Date().toISOString().split('T')[0]}.pdf`);
     };
 
     return (
         <div className="athlete-detail-page">
-            <button className="back-button" onClick={() => navigate(fromPage === 'dashboard' ? '/' : '/athletes')}>
-            ← Back
-            </button>
+            <div className="athlete-detail-actions">
+                <button className="back-button" onClick={() => navigate(fromPage === 'dashboard' ? '/' : '/athletes')}>
+                    ← Back
+                </button>
+                <button className="export-btn" onClick={exportToPDF}>
+                    Export PDF
+                </button>
+            </div>
 
             <div className="athlete-detail-header">
                 <div className="athlete-detail-avatar">
@@ -568,7 +683,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Recovery Score</span>
                             <span className="chart-period">Daily</span>
                         </div>
-                        <RecoveryChart data={filteredData} />
+                        <RecoveryChart data={filteredData} darkMode={darkMode} />
                     </div>
 
                     <div className="chart-card">
@@ -576,7 +691,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Heart Rate Variability</span>
                             <span className="chart-period">Daily</span>
                         </div>
-                        <HRVChart data={filteredData} />
+                        <HRVChart data={filteredData} darkMode={darkMode} />
                     </div>
 
                     <div className="chart-card">
@@ -584,7 +699,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Daily Strain</span>
                             <span className="chart-period">Daily</span>
                         </div>
-                        <StrainChart data={filteredData} />
+                        <StrainChart data={filteredData} darkMode={darkMode} />
                     </div>
 
                     <div className="chart-card">
@@ -592,7 +707,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Sleep Duration</span>
                             <span className="chart-period">vs 8h target</span>
                         </div>
-                        <SleepChart data={filteredData} />
+                        <SleepChart data={filteredData} darkMode={darkMode} />
                     </div>
 
                     <div className="chart-card">
@@ -600,7 +715,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Weekly Trends</span>
                             <span className="chart-period">8 weeks</span>
                         </div>
-                        <WeeklyTrendChart data={historicalData.weeklyData} />
+                        <WeeklyTrendChart data={historicalData.weeklyData} darkMode={darkMode} />
                     </div>
 
                     <div className="chart-card">
@@ -608,7 +723,7 @@ const AthleteDetail = ({ athletesData }) => {
                             <span className="chart-title">Session Types</span>
                             <span className="chart-period">30 days</span>
                         </div>
-                        <SessionPieChart data={historicalData.sessionBreakdown} />
+                        <SessionPieChart data={historicalData.sessionBreakdown} darkMode={darkMode} />
                     </div>
                 </div>
             </div>

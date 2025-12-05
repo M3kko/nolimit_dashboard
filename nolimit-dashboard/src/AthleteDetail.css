@@ -3,6 +3,39 @@
     max-width: 1600px;
 }
 
+.athlete-detail-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.export-btn {
+    background: #ffffff;
+    color: #0a0a0a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.export-btn:hover {
+    background: #e5e5e5;
+    transform: translateY(-1px);
+}
+
+.light-mode .export-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.light-mode .export-btn:hover {
+    background: #333333;
+}
+
 .back-button {
     background: transparent;
     border: none;
@@ -10,7 +43,6 @@
     font-size: 0.9rem;
     cursor: pointer;
     padding: 0.5rem 0;
-    margin-bottom: 1.5rem;
     transition: color 0.2s;
 }
 

@@ -128,7 +128,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/athletes" element={<Athletes athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
-          <Route path="/athlete/:id" element={<AthleteDetail athletesData={athletesData} />} />
+          <Route path="/athlete/:id" element={<AthleteDetail athletesData={athletesData} darkMode={darkMode} />} />
           <Route path="/analytics" element={<Analytics athletesData={athletesData} darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
           <Route path="/settings" element={<Settings darkMode={darkMode} setDarkMode={setDarkMode} SunIcon={SunIcon} MoonIcon={MoonIcon} />} />
         </Routes>
