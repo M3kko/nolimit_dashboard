@@ -333,9 +333,29 @@ const AthleteDetail = ({ athletesData }) => {
             pdf.text(`${session.avgHR} bpm`, xPos, y + 5);
             xPos += colWidths[3];
 
-            
+            pdf.text(`${session.maxHR} bpm`, xPos, y + 5);
+            xPos += colWidths[4];
+
+            const strainColor = session.strain > 15 ? [239, 68, 68] : session.strain > 10 ? amber : green;
+            pdf.setTextColor(...strainColor);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(String(session.strain), xPos, y + 5);
+            pdf.setFont('helvetica', 'normal');
+
+            y += 7;
         });
-    }
+
+        y += 10;
+
+        pdf.setFillColor(...cardBg);
+        pdf.roundedRect(15, y, pageWidth - 30, 12, 2, 2, 'F');
+        pdf.setFontSize(7);
+        pdf.setTextColor(...gray);
+        pdf.text('NoLimit Athletic Performance Dashboard', 20, y + 7);
+        pdf.text(`Report for ${athlete.name} • ${new Date().toLocaleDateString()}`, pageWidth - 80, y + 7);
+
+        pdf.save(`${athlete.name.toLowerCase().replace(' ', '_')}_stats.pdf`);
+    };
 
     return (
         <div className="athlete-detail-page">

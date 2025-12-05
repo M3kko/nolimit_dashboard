@@ -566,3 +566,30 @@
     color: #ffffff;
     border-color: #1a1a1a;
 }
+
+.export-btn {
+    background: #ffffff;
+    color: #0a0a0a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 1rem;
+}
+
+.export-btn:hover {
+    background: #e5e5e5;
+    transform: translateY(-1px);
+}
+
+.light-mode .export-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.light-mode .export-btn:hover {
+    background: #333333;
+}
