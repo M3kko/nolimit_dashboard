@@ -137,7 +137,80 @@ const AthleteDetail = ({ athletesData }) => {
         const purple = [139, 92, 246];
         const amber = [245, 158, 11];
 
-        
+        pdf.setFillColor(...darkBg);
+        pdf.rect(0, 0, pageWidth, pdf.internal.pageSize.getHeight(), 'F');
+
+        let y = 20;
+
+        pdf.setFillColor(...cardBg);
+        pdf.roundedRect(15, y, pageWidth - 30, 35, 3, 3, 'F');
+
+        pdf.setFillColor(...green);
+        pdf.circle(30, y + 17, 10, 'F');
+        pdf.setTextColor(...white);
+        pdf.setFontSize(14);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(athlete.name.charAt(0), 27, y + 21);
+
+        pdf.setFontSize(18);
+        pdf.setTextColor(...white);
+        pdf.text(athlete.name, 45, y + 14);
+        pdf.setFontSize(10);
+        pdf.setTextColor(...gray);
+        pdf.text(athlete.sport, 45, y +22);
+
+        const statusColor = athlete.status.tolowerCase() === 'active' ? green : athlete.status.toLowerCase() === 'recovery' ? amber : [239, 68, 68];
+        pdf.setFillColor(...statusColor);
+        pdf.roundedRect(pageWidth - 50, y +10, 25, 8, 2, 2, 'F');
+        pdf.setFontSize(7);
+        pdf.text(athlete.status, pageWidth - 45, y + 15);
+
+        pdf.setFontSize(8);
+        pdf.setTextColor(...gray);
+        pdf.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth - 55, y + 30);
+
+        y += 45;
+
+        pdf.setFontSize(8);
+        pdf.setTextColor(...gray);
+        pdf.text("TODAY'S SNAPSHOT", 15, y);
+        y += 8;
+
+        const primarymetrics = [
+            { label: 'Recovery', value: `${biometrics.recovery.score}%`, color: green },
+            { label: 'Strain', value: biometrics.strain.daily, color: amber },
+            { label: 'Sleep', value: `${biometrics.sleep.total}h`, color: purple },
+            { label: 'HRV', value: `${biometrics.hrv.value} ms`, color: blue }
+        ];
+
+        const cardWidth = (pageWidth - 45) / 4;
+        primarymetrics.forEach((metric, i) => {
+            const x = 15 + (i * (cardWidth + 5));
+            pdf.setFillColor(...cardBg);
+            pdf.roundedRect(x, y, cardWidth, 28, 2, 2, 'F');
+
+            pdf.setFillColor(...metric.color);
+            pdf.rect(x, y + 2, 1.5, 24, 'F');
+
+            pdf.setFontSize(7);
+            pdf.setTextColor(...gray);
+            pdf.text(metric.label.toUpperCase(), x + 5, y + 8);
+
+            pdf.setFontSize(16);
+            pdf.setTextColor(...white);
+            pdf.text(metric.label.toUpperCase(), x + 5, y + 8);
+
+            pdf.setFillColor(...metric.color);
+            pdf.rect(x, y + 2, 1.5, 24, 'F');
+            
+            pdf.setFontSize(7);
+            pdf.setTextColor(...gray);
+            pdf.text(metric.label.toUpperCase(), x +5, y + 8);
+
+            pdf.setFontSize(16);
+            
+        })
+
     }
 
     return (
