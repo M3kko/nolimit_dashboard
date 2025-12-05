@@ -208,9 +208,133 @@ const AthleteDetail = ({ athletesData }) => {
             pdf.text(metric.label.toUpperCase(), x +5, y + 8);
 
             pdf.setFontSize(16);
-            
-        })
+            pdf.setTextColor(...white);
+            pdf.setFont('helvetica', bold);
+            pdf.text(String(metric.value), x + 5, y +20);
+            pdf.setFont('hlevetica', 'normal');
+        });
 
+        y += 38;
+
+        pdf.setFontSize(8);
+        pdf.setTextColor(...gray);
+        pdf.text("DETAILED BIOMETRICS", 15, y);
+        y += 8;
+
+        const detailedMetrics = [
+            { label: 'Resting HR', value: biometrics.rhr.value, unit: 'bpm' },
+            { label: 'VO₂ Max', value: biometrics.vo2max.value, unit: 'ml/kg/min' },
+            { label: 'SpO₂', value: biometrics.spo2.value, unit: '%' },
+            { label: 'Resp. Rate', value: biometrics.respiratoryRate.value, unit: 'brpm' },
+            { label: 'Skin Temp', value: biometrics.skinTemp.value, unit: '°C' },
+            { label: 'Sleep Eff.', value: biometrics.sleep.efficiency, unit: '%' }
+        ];
+
+        const smallCardWiddth = (pageWidth - 40) / 6;
+        detailedMetrics.forEach((metric, i) => {
+            const x = 15 + (i * (smallCardWidth + 3));
+            pdf.setFillColor(...cardBg);
+            pdf.roundedRect(x, y, smallCardWidth, 24, 2, 2, 'F');
+
+            pdf.setFontSize(6);
+            pdf.setTextColor(...gray);
+            pdf.text(metric.label.toUpperCase(), x + 3, y + 7);
+
+            pdf.setFontSize(12);
+            pdf.setTextColor(...white);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(String(metric.value), x +3, y +15);
+            pdf.setFont('helvetica', 'normal');
+
+            pdf.setFontSize(6);
+            pdf.setTextColor(...gray);
+            pdf.text(metric.unit, x + 3, y + 20);
+        });
+
+        y += 34;
+
+        pdf.setFontSize(8);
+        pdf.setTextColor(...gray);
+        pdf.text("SLEEP BREAKDOWN", 15, y);
+        y += 8;
+
+        const sleepData = [
+            { label: 'Deep', value: biometrics.sleep.deep, color: purple },
+            { label: 'REM', value: biometrics.sleep.rem, color: blue },
+            { label: 'Light', value: (biometrics.sleep.total - biometrics.sleep.deep - biometrics.sleep.rem).toFixed(1), color: green }
+        ];
+
+        const sleepCardWidth = (pageWidth - 40) / 3;
+        sleepData.forEach((sleep, i) => {
+            const x = 15 + (i * (sleepCardWidth + 5));
+            pdf.setFillColor(...cardBg);
+            pdf.roundedRect(x, y, sleepCardWidth, 22, 2, 2, 'F');
+
+            pdf.setFontSize(7);
+            pdf.setTextColor(...gray);
+            pdf.text(sleep.label.toUpperCase(), x + 5, y + 7);
+
+            pdf.seFontSize(14);
+            pdf.setTextColor(...white);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(`${sleep.value}h`, x + 5, y + 16);
+            pdf.setFont('helvetica', 'normal');
+
+            const barWidth = sleepCardWidth - 10;
+            const fillWidth = (sleep.value / biometrics.sleep.total) * barWidth;
+            pdf.setFillColor(42, 42, 42);
+            pdf.roundedRect(x + 5, y + 18, barWidth, 2, 1, 1, 'F');
+            pdf.setFillColor(...sleep.color);
+            pdf.roundedRect(x + 5, y + 18, fillWidth, 2, 1, 1, 'F');
+        });
+
+        y += 32;
+
+        pdf.setFontSize(8);
+        pdf.setTextColor(...gray);
+        pdf.text("RECENT SESSIONS", 15, y);
+        y += 8;
+
+        pdf.setFillColor(10, 10, 10);
+        pdf.roundedRect(15, y, pageWidth -30, 8, 2, 2, 'F');
+        pdf.setFontSizes(6);
+        pdf.setTextColor(...gray);
+        const headers = ['DATE', 'TYPE', 'DURATION', 'AVG HR', 'MAX HR', 'STRAIN'];
+        const colWidths = [25, 40, 25, 25, 25, 20];
+        let xPos = 20;
+        headers.forEach((header, i) => {
+            pdf.text(header, xPos, y + 5);
+            xPos += colWidths[i];
+        });
+        y += 10;
+
+        recentSessions.slice(0, 5).forEach((session, i) => {
+            pdf.setFillColor(...(i % 2 === 0 ? cardBg : darkBg));
+            pdf.rect(15, y, pageWidth - 30, 7, 'F');
+
+            pdf.setFontSize(7);
+            pdf.setTextColor(...white);
+
+            xPos = 20;
+            pdf.setTextColor(...gray);
+            pdf.text(session.date, xPos, y + 5);
+            xPos += colWidths[0];
+
+            pdf.setTextColor(...white);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(session.type, xPos, y + 5);
+            pdf.setFont('helvetica', 'normal');
+            xPos += colWidths[1];
+
+            pdf.setTextColor(...white);
+            pdf.text(session.duration, xPos, y + 5);
+            xPos += colWidths[2];
+
+            pdf.text(`${session.avgHR} bpm`, xPos, y + 5);
+            xPos += colWidths[3];
+
+            
+        });
     }
 
     return (
