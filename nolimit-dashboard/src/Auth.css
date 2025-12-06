@@ -17,15 +17,6 @@
 }
 
 .auth-logo {
-    width: 100%;
-    max-width: 400px;
-    background: #111111;
-    border: 1px solid #1a1a1a;
-    border-radius: 16px;
-    padding: 2.5rem;
-}
-
-.auth-logo {
     text-align: center;
     margin-bottom: 2rem;
 }
@@ -114,7 +105,7 @@
 }
 
 .form-row {
-    display: text;
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -190,9 +181,15 @@
 }
 
 .social-btns {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.social-btn {
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
     background: transparent;
@@ -248,5 +245,78 @@
 }
 
 .light-mode .auth-logo h1 {
-    
+    color: #1a1a1a;
+}
+
+.light-mode .auth-tabs {
+    background: #f5f5f5;
+}
+
+.light-mode .auth-tab.active {
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .form-input {
+    background: #fafafa;
+    border-color: #e5e5e5;
+    color: #1a1a1a;
+}
+
+.light-mode .form-input:focus {
+    border-color: #cccccc;
+    background: #ffffff;
+}
+
+.light-mode .form-input::placeholder {
+    color: #999999;
+}
+
+.light-mode .forgot-link:hover {
+    color: #1a1a1a;
+}
+
+.light-mode .auth-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.light-mode .auth-btn:hover {
+    background: #333333;
+}
+
+.light-mode .auth-divider::before,
+.light-mode .auth-divider::after {
+    background: #e5e5e5;
+}
+
+.light-mode .social-btn {
+    border-color: #e5e5e5;
+    color: #1a1a1a;
+}
+
+.light-mode .social-btn:hover {
+    background: #f5f5f5;
+    border-color: #cccccc;
+}
+
+.light-mode .auth-footer {
+    border-top-color: #e5e5e5;
+}
+
+.light-mode .auth-footer a {
+    color: #1a1a1a;
+}
+
+.light-mode .auth-footer a:hover {
+    color: #10b981;
+}
+
+.auth-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
 }
